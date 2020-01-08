@@ -6,8 +6,8 @@ and also the employee functionality.
 
 ## Screenshots of the app
 
-![Main View](DataSmart1.PNG)
+![Main View](MainView.PNG)
 
-![Product View](DataSmart3.PNG)
+![Product View](ProductView.PNG)
 
-![Employee View](DataSmart2.PNG)
+![Employee View](ProductView_2.PNG)
