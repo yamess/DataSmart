@@ -83,10 +83,18 @@ namespace DataSmart.ViewModels
             using (var db = new DataSmartDBContext())
             {
                 var employeeToUpdate = db.Employee.Find(SelectedEmployee.EmployeeId);
-                db.Entry(employeeToUpdate).CurrentValues.SetValues(Employee);
-                //db.Employee.AddOrUpdate(Employee);
-                db.SaveChanges();
-                MessageBox.Show("Employé Mis À Jour", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (db.Employee.Any(o => o.EmployeeId == employeeToUpdate.EmployeeId && o != employeeToUpdate))
+                {
+                    MessageBox.Show("Il existe deja un employee avec le meme ID dans la base de donnée", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                } 
+                else
+                {
+                    Employee.EmployeeId = employeeToUpdate.EmployeeId;
+                    db.Entry(employeeToUpdate).CurrentValues.SetValues(Employee);
+                    //db.Employee.AddOrUpdate(Employee);
+                    db.SaveChanges();
+                    MessageBox.Show("Employé Mis À Jour", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 
