@@ -13,6 +13,15 @@ namespace DataSmart.Models
 
 		public int EmployeeId { get; set; }
 
+		//private string _ProductSKU;
+		//[Required]
+		//[Index(IsUnique = true)]
+		//public string ProductSKU
+		//{
+		//	get { return _ProductSKU; }
+		//	set { _ProductSKU = value; RaisePropertyChanged("ProductSKU"); }
+		//}
+
 		private string _ProductName;
 		public string ProductName
 		{

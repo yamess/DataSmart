@@ -1,6 +1,7 @@
 ﻿using DataSmart.Helpers;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataSmart.Models
 {
@@ -8,14 +9,17 @@ namespace DataSmart.Models
     {
         [Key]
         public int EmployeeId { get; set; }
-
+        
         private string _EmployeeSIN;
+        [Required]
+        [Index(IsUnique = true)]
         public string EmployeeSIN
         {
             get { return _EmployeeSIN; }
             set { _EmployeeSIN = value; RaisePropertyChanged("EmployeeSIN"); }
         }
 
+        [Required]
         private string _FirstName;
         public string FirstName
         {
@@ -23,6 +27,7 @@ namespace DataSmart.Models
             set { _FirstName = value; RaisePropertyChanged("FirstName"); }
         }
 
+        [Required]
         private string _LastName;
         public string LastName
         {
@@ -37,11 +42,11 @@ namespace DataSmart.Models
             set { _Email = value; RaisePropertyChanged("Email"); }
         }
 
-        private double _Salaire;
-        public double Salaire
+        private double _Salary;
+        public double Salary
         {
-            get { return _Salaire; }
-            set { _Salaire = value; RaisePropertyChanged("Salaire"); }
+            get { return _Salary; }
+            set { _Salary = value; RaisePropertyChanged("Salary"); }
         }
 
         private string _Phone;

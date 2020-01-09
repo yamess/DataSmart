@@ -8,13 +8,9 @@
              xmlns:vm="clr-namespace:DataSmart.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             TextElement.FontSize="15"
+             TextElement.FontSize="14"
              FontFamily="Century Gothic"
              d:DesignHeight="450" d:DesignWidth="1000" Margin="5">
-
-    <UserControl.Resources>
-        <vm:ProductVM x:Key="ProductVM"/>
-    </UserControl.Resources>
 
     <Grid Margin="5" DataContext="{Binding ProductVM}" Background="#DFDFDF">
         <Grid.RowDefinitions>

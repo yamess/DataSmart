@@ -114,12 +114,19 @@
     <Compile Include="Migrations\202001072223458_Migratin_3.designer.cs">
       <DependentUpon>202001072223458_Migratin_3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001091012042_migration4.cs" />
+    <Compile Include="Migrations\202001091012042_migration4.designer.cs">
+      <DependentUpon>202001091012042_migration4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductStructure.cs" />
+    <Compile Include="ViewModels\Commands\DeleteEmployeeCommand.cs" />
     <Compile Include="ViewModels\Commands\DeleteProductCommand.cs" />
     <Compile Include="ViewModels\Commands\NewProductCommand.cs" />
+    <Compile Include="ViewModels\Commands\SaveNewEmployeeCommand.cs" />
+    <Compile Include="ViewModels\Commands\EmployeeCommand.cs" />
     <Compile Include="ViewModels\Commands\UpdateProductCommand.cs" />
     <Compile Include="ViewModels\DashboardVM.cs" />
     <Compile Include="ViewModels\EmployeeVM.cs" />
@@ -183,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001072223458_Migratin_3.resx">
       <DependentUpon>202001072223458_Migratin_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001091012042_migration4.resx">
+      <DependentUpon>202001091012042_migration4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

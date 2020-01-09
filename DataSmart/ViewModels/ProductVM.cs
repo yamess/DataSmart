@@ -42,8 +42,6 @@ namespace DataSmart.ViewModels
             set { _NumberOfRecord = value; RaisePropertyChanged("NumberOfRecord"); }
         }
 
-
-
         public ObservableCollection<Product> ProductList { get; set; }
         //public ObservableCollection<ProductStructure> ProductStructureList { get; set; }
 
@@ -92,7 +90,6 @@ namespace DataSmart.ViewModels
 
             FillDataGrid(); // Retrieve data from the database
             
-
             AddNewProductCmd = new NewProductCommand(this);
             UpdateProductCmd = new UpdateProductCommand(this);
             DeleteProductCmd = new DeleteProductCommand(this);
@@ -187,8 +184,8 @@ namespace DataSmart.ViewModels
         {
             using (var db = new DataSmartDBContext())
             {
-                var productToUpdate = db.Produits.Find(SelectedProduct.ProductId);
-                db.Produits.Remove(productToUpdate);
+                var productToDelete = db.Produits.Find(SelectedProduct.ProductId);
+                db.Produits.Remove(productToDelete);
                 db.SaveChanges();
                 MessageBox.Show("Produit Supprimé!", "DataSmart", MessageBoxButton.OK, MessageBoxImage.Information);
             }
