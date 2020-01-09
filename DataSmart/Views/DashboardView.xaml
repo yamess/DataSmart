@@ -11,7 +11,6 @@
              d:DesignHeight="560" d:DesignWidth="820" FontFamily="Century Gothic">
     <UserControl.Resources>
         <vm:DashboardVM x:Key="DashboardVM"/>
-        <vm:ProductVM x:Key="ProductVM"/>
     </UserControl.Resources>
     <Grid Background="#DFDFDF" Margin="5" DataContext="{StaticResource DashboardVM}">
         <Grid.ColumnDefinitions>
@@ -125,8 +124,8 @@
                             <TextBlock Text="Top 10 Des Produits Les Plus Achétés" VerticalAlignment="Center"  Margin="8,0,0,0"
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="White"/>
                         </StackPanel>
-                        <Grid DockPanel.Dock="Bottom" Background="White" DataContext="{StaticResource ProductVM}">
-                            <DataGrid ItemsSource="{Binding ProductList}" SelectedItem="{Binding SelectedProduct}" VerticalAlignment="Top"
+                        <Grid DockPanel.Dock="Bottom" Background="White">
+                            <DataGrid ItemsSource="{Binding ProductVM.ProductList}" SelectedItem="{Binding ProductVM.SelectedProduct}" VerticalAlignment="Top"
                       IsReadOnly="True" AlternatingRowBackground="#C8FFF4" AutoGenerateColumns="False" 
                       SelectionMode="Single" Margin="5">
                                 <DataGrid.Resources>
@@ -174,8 +173,8 @@
                             <TextBlock Text="Articles En Faible Stock" VerticalAlignment="Center"  Margin="8,0,0,0"
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="White"/>
                         </StackPanel>
-                        <Grid DockPanel.Dock="Bottom" Background="White" DataContext="{StaticResource ProductVM}">
-                            <DataGrid ItemsSource="{Binding ProductList}" SelectedItem="{Binding SelectedProduct}" VerticalAlignment="Top"
+                        <Grid DockPanel.Dock="Bottom" Background="White">
+                            <DataGrid ItemsSource="{Binding ProductVM.ProductList}" SelectedItem="{Binding ProductVM.SelectedProduct}" VerticalAlignment="Top"
                       IsReadOnly="True" AlternatingRowBackground="#C8FFF4" AutoGenerateColumns="False" 
                       SelectionMode="Single" Margin="5">
                                 <DataGrid.Resources>

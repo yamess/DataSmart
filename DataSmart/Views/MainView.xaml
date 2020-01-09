@@ -11,10 +11,18 @@
         WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Century Gothic">
 
     <Window.Resources>
-        <vm:MainVM x:Key="mainVM"/>
+        <DataTemplate x:Name="ProductTemplate" DataType="{x:Type vm:ProductVM}">
+            <views:ProductView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="EmployeeTemplate" DataType="{x:Type vm:EmployeeVM}">
+            <views:EmployeeView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="DashboardTemplate" DataType="{x:Type vm:DashboardVM}">
+            <views:DashboardView DataContext="{Binding}"/>
+        </DataTemplate>
     </Window.Resources>
     
-    <Grid Background="#DFDFDF" DataContext="{StaticResource mainVM}">
+    <Grid Background="#DFDFDF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="180"/>
             <ColumnDefinition Width="*"/>
@@ -120,11 +128,10 @@
             </Grid>
             
             <!--The User Controle View Area-->
-            <Grid Grid.Row="1">
-                <views:DashboardView x:Name="dashboardView"/>
-                <views:ProductView x:Name="productView"/>
-                <views:EmployeeView x:Name="employeeView"/>
-            </Grid>
+            <ContentControl Grid.Row="1" Content="{Binding}"/>
+            <!--<Grid Grid.Row="1">
+                <ContentControl 
+            </Grid>-->
         </Grid>
     </Grid>
 </Window>

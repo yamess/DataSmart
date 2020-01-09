@@ -13,6 +13,7 @@ using System.Windows;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using AutoMapper;
+using System.Data.Entity;
 
 namespace DataSmart.ViewModels
 {
@@ -41,8 +42,6 @@ namespace DataSmart.ViewModels
             get { return _NumberOfRecord; }
             set { _NumberOfRecord = value; RaisePropertyChanged("NumberOfRecord"); }
         }
-
-
 
         public ObservableCollection<Product> ProductList { get; set; }
         //public ObservableCollection<ProductStructure> ProductStructureList { get; set; }
@@ -100,8 +99,9 @@ namespace DataSmart.ViewModels
         #endregion
 
         #region Methods
-
-        // Method to fill the datagrid
+        /// <summary>
+        /// Method to fill the datagrid
+        /// </summary>
         public void FillDataGrid()
         {
             using (var db = new DataSmartDBContext())
@@ -112,9 +112,14 @@ namespace DataSmart.ViewModels
                     ProductList.Add(d);
                 }
             };
-            NumberOfRecord = ProductList.Count();
+            //NumberOfRecord = ProductList.Count();
         }
 
+        /// <summary>
+        /// Method to save the new Category and subcategory entered
+        /// </summary>
+        /// <param name="Category">New Category</param>
+        /// <param name="SubCategory">New SubCategory</param>
         public void SaveNewProductStructure(string Category,string SubCategory)
         {
             using (var db = new DataSmartDBContext())

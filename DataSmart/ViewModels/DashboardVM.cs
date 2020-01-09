@@ -14,7 +14,8 @@ namespace DataSmart.ViewModels
 {
     public class DashboardVM:BaseModel
     {
-        public Product Product { get; set; }
+        public ProductVM ProductVM { get; set; }
+
         public SeriesCollection BarChartSeriesCollection { get; set; }
         public SeriesCollection LineChartSeriesCollection { get; set; }
         public Product Product_1 { get; set; }
@@ -24,6 +25,8 @@ namespace DataSmart.ViewModels
         #region Initialisation
         public DashboardVM()
         {
+            ProductVM = new ProductVM();
+
             BarChartSeriesCollection = new SeriesCollection()
             {
                 new ColumnSeries

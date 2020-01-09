@@ -1,4 +1,5 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using DataSmart.ViewModels;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,45 +21,59 @@ namespace DataSmart.Views
     /// </summary>
     public partial class MainView : Window
     {
+        public EmployeeVM EmpVM { get; set; }
+        public DashboardVM DashboardVM { get; set; }
+        public ProductVM ProductVM { get; set; }
+
+
         public MainView()
         {
             InitializeComponent();
-            dashboardView.Visibility = Visibility.Visible;
-            productView.Visibility = Visibility.Hidden;
-            employeeView.Visibility = Visibility.Hidden;
+            //dashboardView.Visibility = Visibility.Visible;
+            //productView.Visibility = Visibility.Hidden;
+            //employeeView.Visibility = Visibility.Hidden;
+            EmpVM = new EmployeeVM();
+            DashboardVM = new DashboardVM();
+            ProductVM = new ProductVM();
+
+
             title.Content = "Tableau de Board";
+            DataContext = ProductVM;
         }
 
         private void dashboardView_click(object sender, RoutedEventArgs e)
         {
-            if (dashboardView.Visibility != Visibility.Visible)
-            {
-                dashboardView.Visibility = Visibility.Visible;
-                productView.Visibility = Visibility.Hidden; // Make the productView View visible
-                employeeView.Visibility = Visibility.Hidden;  // Hide the employeeView view
-                title.Content = "Tableau de Board"; // Change the title to the appropriate title
-            }
+            //if (dashboardView.Visibility != Visibility.Visible)
+            //{
+            //    dashboardView.Visibility = Visibility.Visible;
+            //    productView.Visibility = Visibility.Hidden; // Make the productView View visible
+            //    employeeView.Visibility = Visibility.Hidden;  // Hide the employeeView view
+            //    title.Content = "Tableau de Board"; // Change the title to the appropriate title
+            //}
+            DataContext = DashboardVM;
         }
 
         private void btnProductView_click(object sender, RoutedEventArgs e)
         {
-            if (productView.Visibility != Visibility.Visible)
-            {
-                productView.Visibility = Visibility.Visible; // Make the productView View visible
-                employeeView.Visibility = Visibility.Hidden;  // Hide the employeeView view
-                dashboardView.Visibility = Visibility.Hidden;
-                title.Content = "Produits"; // Change the title to the appropriate title
-            }
+            //if (productView.Visibility != Visibility.Visible)
+            //{
+            //    productView.Visibility = Visibility.Visible; // Make the productView View visible
+            //    employeeView.Visibility = Visibility.Hidden;  // Hide the employeeView view
+            //    dashboardView.Visibility = Visibility.Hidden;
+            //    title.Content = "Produits"; // Change the title to the appropriate title
+            //}
+            DataContext = ProductVM;
         }
         private void btnEmployeeView_click(object sender, RoutedEventArgs e)
         {
-            if (employeeView.Visibility != Visibility.Visible)
-            {
-                employeeView.Visibility = Visibility.Visible; // Make the employeeView View visible
-                productView.Visibility = Visibility.Hidden; // Hide the productView view
-                dashboardView.Visibility = Visibility.Hidden;
-                title.Content = "Employés"; // Change the title to the appropriate title
-            }
+            //if (employeeView.Visibility != Visibility.Visible)
+            //{
+            //    employeeView.Visibility = Visibility.Visible; // Make the employeeView View visible
+            //    productView.Visibility = Visibility.Hidden; // Hide the productView view
+            //    dashboardView.Visibility = Visibility.Hidden;
+            //    title.Content = "Employés"; // Change the title to the appropriate title
+            //}
+            DataContext = EmpVM;
         }
 
 

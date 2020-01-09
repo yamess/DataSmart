@@ -3,10 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DataSmart.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:si="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+             xmlns:vm="clr-namespace:DataSmart.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             TextElement.FontSize="15"
+             FontFamily="Century Gothic"
+             d:DesignHeight="450" d:DesignWidth="1000" Margin="5">
+    <Grid Background="#DFDFDF" Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--#region Input Section-->
+        <Grid Grid.Row="0">
             
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region Datagrid Section-->
+        <Grid Grid.Row="1">
+            
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region Button-->
+        
     </Grid>
 </UserControl>
