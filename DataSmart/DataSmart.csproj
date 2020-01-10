@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Helpers\BaseModel.cs" />
     <Compile Include="Helpers\DataSmartDBContext.cs" />
+    <Compile Include="Helpers\Misc.cs" />
     <Compile Include="Migrations\202001060406201_InitialCreate.cs" />
     <Compile Include="Migrations\202001060406201_InitialCreate.designer.cs">
       <DependentUpon>202001060406201_InitialCreate.cs</DependentUpon>
@@ -144,6 +145,9 @@
     <Compile Include="Views\ProductView.xaml.cs">
       <DependentUpon>ProductView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UpdateEmployeeWindow.xaml.cs">
+      <DependentUpon>UpdateEmployeeWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="ResourceDictionaries\ResourceDict.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateEmployeeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

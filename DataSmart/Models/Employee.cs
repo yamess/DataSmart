@@ -83,5 +83,19 @@ namespace DataSmart.Models
             get { return _DateOfHire; }
             set { _DateOfHire = value; RaisePropertyChanged("DateOfHire"); }
         }
+
+        public Employee ShallowCopy()
+        {
+            return (Employee)this.MemberwiseClone();
+        }
+
+        public Employee DeepCopy()
+        {
+            Employee other = new (Employee)this.MemberwiseClone();
+            foreach(var prop in Employee.GetType().GetProperties())
+            {
+
+            }
+        }
     }
 }

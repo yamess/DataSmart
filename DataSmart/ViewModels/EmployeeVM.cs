@@ -17,7 +17,6 @@ namespace DataSmart.ViewModels
         #region Properties
         //public Employee Employee { get; set; }
         private Employee _employee;
-
         public Employee Employee
         {
             get { return _employee; }
@@ -25,11 +24,17 @@ namespace DataSmart.ViewModels
         }
 
         private Employee _SelectedEmployee;
-
         public Employee SelectedEmployee
         {
             get { return _SelectedEmployee; }
-            set { _SelectedEmployee = value; RaisePropertyChanged("SelectedEmployee"); RaisePropertyChanged("Employee"); }
+            set
+            {
+                _SelectedEmployee = value; RaisePropertyChanged("SelectedEmployee");
+                if(SelectedEmployee != null)
+                {
+                    Employee = SelectedEmployee; RaisePropertyChanged("Employee");
+                }
+            }
         }
 
         public ObservableCollection<Employee> EmployeeList { get; set; }
@@ -83,9 +88,10 @@ namespace DataSmart.ViewModels
             using (var db = new DataSmartDBContext())
             {
                 var employeeToUpdate = db.Employee.Find(SelectedEmployee.EmployeeId);
-                if (db.Employee.Any(o => o.EmployeeId == employeeToUpdate.EmployeeId && o != employeeToUpdate))
+
+                if (db.Employee.Any(o => o.EmployeeId != Employee.EmployeeId & o.EmployeeSIN == Employee.EmployeeSIN))
                 {
-                    MessageBox.Show("Il existe deja un employee avec le meme ID dans la base de donnée", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Il existe deja un employé avec le meme ID dans la base de donnée", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 } 
                 else
                 {
@@ -136,6 +142,11 @@ namespace DataSmart.ViewModels
                 }
                 
             }
+
+        }
+
+        public void NewWindow()
+        {
 
         }
         #endregion

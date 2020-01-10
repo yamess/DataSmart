@@ -38,35 +38,35 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Text="Identification"/>
+                <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Identification: "/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Text="Nom De Famille"/>
+                <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Nom De Famille: "/>
                 </Grid>
-                <Grid Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Text="Prénom"/>
+                <Grid Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Prénom: "/>
                 </Grid>
-                <Grid Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Text="Téléphone"/>
+                <Grid Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Téléphone: "/>
                 </Grid>
-                <Grid Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Text="Adresse"/>
+                <Grid Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Adresse: "/>
                 </Grid>
-                <Grid Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Email"/>
+                <Grid Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Email: "/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Fonction"/>
+                <Grid Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Fonction: "/>
                 </Grid>
-                <Grid Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Salaire"/>
+                <Grid Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Salaire: "/>
                 </Grid>
-                <Grid Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Date d'Embauche"/>
+                <Grid Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Date d'Embauche: "/>
                 </Grid>
-                <Grid Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Date De Naissance"/>
+                <Grid Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="Date De Naissance: "/>
                 </Grid>
 
                 
@@ -112,7 +112,7 @@
 
         <!--#region DataGrid-->
         <Grid Grid.Row="1" Margin="0 5" Background="White">
-            <DataGrid ItemsSource="{Binding EmployeeList}" SelectedItem="{Binding SelectedEmployee}" VerticalAlignment="Top"
+            <DataGrid ItemsSource="{Binding EmployeeList}" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"
                       IsReadOnly="True" AlternatingRowBackground="#C8FFF4" AutoGenerateColumns="False" 
                       SelectionMode="Single" Margin="5">
                 <DataGrid.Resources>
