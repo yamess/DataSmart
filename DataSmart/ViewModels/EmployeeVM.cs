@@ -32,7 +32,7 @@ namespace DataSmart.ViewModels
                 _SelectedEmployee = value; RaisePropertyChanged("SelectedEmployee");
                 if(SelectedEmployee != null)
                 {
-                    Employee = SelectedEmployee; RaisePropertyChanged("Employee");
+                    Employee = Misc.DeepCopy(SelectedEmployee) as Employee; RaisePropertyChanged("Employee");
                 }
             }
         }
@@ -44,19 +44,7 @@ namespace DataSmart.ViewModels
         #region Initialisation
         public EmployeeVM()
         {
-            Employee = new Employee()
-            {
-                EmployeeSIN = "S23G34D30",
-                FirstName = "Kary",
-                LastName = "Yamess",
-                Email = "kary.yamess@karyamess.ca",
-                Phone = "418-233-9800",
-                Address = "56 George Street, Toronto, Canada",
-                Position = "Data Scientist",
-                Salary = 120000,
-                DateOfHire = DateTime.Now.ToShortDateString(),
-                DateOfBirth = DateTime.Now.ToShortDateString(),
-            };
+            Employee = new Employee();
             
             EmployeeList = new ObservableCollection<Employee>();
             FillEmployeeGrid();
@@ -89,17 +77,23 @@ namespace DataSmart.ViewModels
             {
                 var employeeToUpdate = db.Employee.Find(SelectedEmployee.EmployeeId);
 
+                // Check wether the new value of EmployeeSIN is identical to an existing Employee EmployeeSIN since this property value should be unique
                 if (db.Employee.Any(o => o.EmployeeId != Employee.EmployeeId & o.EmployeeSIN == Employee.EmployeeSIN))
                 {
                     MessageBox.Show("Il existe deja un employé avec le meme ID dans la base de donnée", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 } 
-                else
+                else // Else apply updates to the selected employee
                 {
-                    Employee.EmployeeId = employeeToUpdate.EmployeeId;
-                    db.Entry(employeeToUpdate).CurrentValues.SetValues(Employee);
-                    //db.Employee.AddOrUpdate(Employee);
-                    db.SaveChanges();
-                    MessageBox.Show("Employé Mis À Jour", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Show a dialog box to confirm the action. if result is Yes then apply changes otherwise do nothing
+                    var result = MessageBox.Show("Vous êtes sur le point de modifier les informations de la ligne séctionnée avec les informations affichées. " +
+                        "Voulez vous poursuivre la modification?", "DataSmart Info", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if(result == MessageBoxResult.Yes)
+                    {
+                        // Update the selected entity property values with th new ones
+                        db.Entry(employeeToUpdate).CurrentValues.SetValues(Employee);
+                        db.SaveChanges();   // Save changes to the database
+                        MessageBox.Show("Employé Mis À Jour", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
             }
         }
@@ -142,11 +136,6 @@ namespace DataSmart.ViewModels
                 }
                 
             }
-
-        }
-
-        public void NewWindow()
-        {
 
         }
         #endregion
