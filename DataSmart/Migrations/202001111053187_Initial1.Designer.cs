@@ -7,13 +7,13 @@ namespace DataSmart.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class ProductStructur : IMigrationMetadata
+    public sealed partial class Initial1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ProductStructur));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial1));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001060647015_ProductStructur"; }
+            get { return "202001111053187_Initial1"; }
         }
         
         string IMigrationMetadata.Source

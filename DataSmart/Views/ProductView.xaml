@@ -27,6 +27,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
@@ -48,6 +49,12 @@
                     <TextBlock Text="Sous Catégorie"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="Attribut"/>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="Fournisseur"/>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="4" VerticalAlignment="Center">
                     <TextBlock Text="Date d'Achat"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="4" VerticalAlignment="Center">
@@ -79,8 +86,17 @@
                         
                     </ComboBox>
                 </Grid>
+                <Grid Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
+                    <ComboBox Margin="10 0 10 0" ItemsSource="{Binding SubCategoryList}" IsEditable="True" 
+                              Text=""
+                              SelectedValue="">
+                    </ComboBox>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="1" VerticalAlignment="Center">
+                    <TextBox Text="Supplier Read only" Margin="10 0 10 0"/>
+                </Grid>
 
-                <Grid Grid.Row="3" Grid.Column="1">
+                <Grid Grid.Row="4" Grid.Column="5">
                     <DatePicker IsTodayHighlighted="True" SelectedDate="{Binding Product.DateOfPurchase}" SelectedDateFormat="Short" Margin="10 0 10 0"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="5" VerticalAlignment="Center">
@@ -136,6 +152,7 @@
                     <DataGridTextColumn Header="Désignation" Binding="{Binding ProductName}"/>
                     <DataGridTextColumn Header="Catégorie" Binding="{Binding ProductCategory_1}"/>
                     <DataGridTextColumn Header="Sous-Catégorie" Binding="{Binding ProductCategory_2}"/>
+                    <DataGridTextColumn Header="Attribut" Binding="{Binding Supplier}"/>
                     <DataGridTextColumn Header="Prix d'Achat" Binding="{Binding UnitPurchasePrice}"/>
                     <DataGridTextColumn Header="Prix de Vente" Binding="{Binding UnitSalePrice}"/>
                     <DataGridTextColumn Header="Rabais Authorisé" Binding="{Binding MaxDiscount}"/>
@@ -156,7 +173,7 @@
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
 
                 <Button Margin="5" BorderBrush="{x:Null}"
-                    Command="{Binding AddNewProductCmd}" CommandParameter="{Binding Product.ProductName}">
+                    Command="{Binding ProductCmd}" CommandParameter="Add">
                     <Button.Background>
                         <LinearGradientBrush>
                             <GradientStop Color="#00DDE7" Offset="0.0"/>
@@ -170,7 +187,7 @@
                 </Button>
 
                 <Button Margin="5" BorderBrush="{x:Null}"
-                    Command="{Binding UpdateProductCmd}">
+                    Command="{Binding ProductCmd}" CommandParameter="Update">
                     <Button.Background>
                         <LinearGradientBrush>
                             <GradientStop Color="#00DDE7" Offset="0.0"/>
@@ -184,7 +201,7 @@
                 </Button>
 
                 <Button Margin="5" BorderBrush="{x:Null}"
-                    Command="{Binding DeleteProductCmd}">
+                    Command="{Binding ProductCmd}" CommandParameter="Delete">
                     <Button.Background>
                         <LinearGradientBrush>
                             <GradientStop Color="#00DDE7" Offset="0.0"/>

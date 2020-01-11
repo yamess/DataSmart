@@ -11,17 +11,6 @@ namespace DataSmart.Models
 		[Key]
 		public int ProductId { get; set; }
 
-		public int EmployeeId { get; set; }
-
-		//private string _ProductSKU;
-		//[Required]
-		//[Index(IsUnique = true)]
-		//public string ProductSKU
-		//{
-		//	get { return _ProductSKU; }
-		//	set { _ProductSKU = value; RaisePropertyChanged("ProductSKU"); }
-		//}
-
 		private string _ProductName;
 		public string ProductName
 		{
@@ -100,14 +89,11 @@ namespace DataSmart.Models
 		}
 
 		private DateTime _DateOfRecord;
+		//[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime DateOfRecord
 		{
 			get { return _DateOfRecord; }
-			set
-			{
-				_DateOfRecord = value;
-				RaisePropertyChanged("DateOfRecord");
-			}
+			set { _DateOfRecord = value; RaisePropertyChanged("DateOfRecord"); }
 		}
 
 		private decimal _UnitSalePrice;
@@ -124,13 +110,14 @@ namespace DataSmart.Models
 			set { _MaxDiscount = value; RaisePropertyChanged("MaxDiscount"); }
 		}
 
-		private string _Supplier;
+		//private string _Supplier;
 
+
+		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public string Supplier
 		{
-			get { return _Supplier; }
-			set { _Supplier = value; RaisePropertyChanged("Supplier"); }
+			get { return (ProductId.ToString() + ProductName.Replace(" ",string.Empty)).ToUpper(); }
+			private set { }
 		}
-
 	}
 }

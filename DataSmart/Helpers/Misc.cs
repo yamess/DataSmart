@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace DataSmart.Helpers
 {
-    public class Misc
+    public static class Misc
     {
+        public static string Rigth(this string value, int length)
+        {
+            return value.Substring(value.Length - length);
+        }
+
+        public static string Left(this string value, int length)
+        {
+            return value.Substring(length);
+        }
+
         public static object DeepCopy(object objSource)
         {
             // Get the type of the source object and create a new instance of that type

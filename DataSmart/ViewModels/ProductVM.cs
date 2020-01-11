@@ -19,31 +19,33 @@ namespace DataSmart.ViewModels
     public class ProductVM:BaseModel
     {
         #region Properties
-        public Product Product { get; set; }
-        public Employee Employee { get; set; }
-        public Product SelectedProduct { get; set; }
 
-        private ProductStructure _SelectedProductStructure;
-        public ProductStructure SelectedProductStructure
+        private Product _product;
+        public Product Product
         {
-            get { return _SelectedProductStructure; }
-            set { _SelectedProductStructure = value; RaisePropertyChanged("SelectedProductStructure"); RaisePropertyChanged("Product.ProductCategory_1"); }
+            get { return _product; }
+            set { _product = value; RaisePropertyChanged("Product"); }
         }
 
-        public NewProductCommand AddNewProductCmd { get; set; }
-        public UpdateProductCommand UpdateProductCmd { get; set; }
-        public DeleteProductCommand DeleteProductCmd { get; set; }
-        public ProductStructure ProductStructure { get; set; }
-
-        private int _NumberOfRecord;
-        public int NumberOfRecord
+        private Product _SelectedProduct;
+        public Product SelectedProduct
         {
-            get { return _NumberOfRecord; }
-            set { _NumberOfRecord = value; RaisePropertyChanged("NumberOfRecord"); }
+            get { return _SelectedProduct; }
+            set
+            {
+                _SelectedProduct = value;
+                RaisePropertyChanged("SelectedProduct");
+                if(SelectedProduct != null)
+                {
+                    Product = Misc.DeepCopy(SelectedProduct) as Product;
+                    RaisePropertyChanged("Product");
+                }
+            }
         }
+
+        //public ProductStructure ProductStructure { get; set; }
 
         public ObservableCollection<Product> ProductList { get; set; }
-        //public ObservableCollection<ProductStructure> ProductStructureList { get; set; }
 
         private IList<string> _categoryList;
         public IList<string> CategoryList
@@ -62,69 +64,157 @@ namespace DataSmart.ViewModels
             set { _subCategoryList = value; RaisePropertyChanged("SubCategoryList"); }
         }
 
+        public ProductCommand ProductCmd { get; set; }
+
         #endregion
 
-        #region Initialization of the class
+        #region Constructor of the class
         public ProductVM()
         {
-            CategoryList = new List<string>();
-            SubCategoryList = new List<string>();
-            SelectedProductStructure = new ProductStructure();
-            ProductList = new ObservableCollection<Product>();
-
-            GetProductStructure();
 
             Product = new Product()
             {
-                ProductName = "Samsung Galaxy S9",
-                ProductCategory_1 = CategoryList[0],
-                ProductCategory_2 = SubCategoryList[0],
                 DateOfRecord = DateTime.Now,
-                DateOfPurchase = DateTime.Now.ToShortDateString(),
-                UnitPurchasePrice = 600000,
-                UnitSalePrice = 800000,
-                MaxDiscount = 50000,
-                Quantity = 30,
-                EmployeeId = 25
+                DateOfPurchase = DateTime.Now.ToShortDateString()
             };
+            //{
+            //    ProductName = "Samsung Galaxy S9",
+            //    ProductCategory_1 = CategoryList[0],
+            //    ProductCategory_2 = SubCategoryList[0],
+            //    ,
+            //    DateOfPurchase = DateTime.Now.ToShortDateString(),
+            //    UnitPurchasePrice = 600000,
+            //    UnitSalePrice = 800000,
+            //    MaxDiscount = 50000,
+            //    Quantity = 30,
+            //    EmployeeId = 25
+            //};
 
-            FillDataGrid(); // Retrieve data from the database
+            ProductList = new ObservableCollection<Product>();
+
+            FillProductGrid(); // Retrieve data from the database
+
+            CategoryList = new List<string>();
+            SubCategoryList = new List<string>();
             
-            AddNewProductCmd = new NewProductCommand(this);
-            UpdateProductCmd = new UpdateProductCommand(this);
-            DeleteProductCmd = new DeleteProductCommand(this);
+            GetProductStructure();
+
+            ProductCmd = new ProductCommand(this);
+
         }
         #endregion
 
-        #region Methods
+        #region Buttons Actions
+        /// <summary>
+        /// Method to Save new entity of Product
+        /// </summary>
+        public void AddNewProduct()
+        {
+            using (var db = new DataSmartDBContext())
+            {
+                if (db.Produits.Any(o => o.ProductName == Product.ProductName & o.ProductCategory_1 == Product.ProductCategory_1 & o.ProductCategory_2 == Product.ProductCategory_2))
+                {
+                    MessageBox.Show("Il existe déja un produit avec le meme nom dans la base de données. Veuillez vérifier de nouveau les informations saisies." +
+                        "Aucun Changement affectué.", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    Product.DateOfRecord = DateTime.Now;
+                    db.Produits.Add(Product);
+                    db.SaveChanges();
+                    MessageBox.Show("Nouveau produit sauvegardé dans la base de données avec succès", "DataSmart", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+
+        /// <summary>
+        ///  Method to update an Existing Entity of Product
+        /// </summary>
+        public void UpdateProduct()
+        {
+            using (var db = new DataSmartDBContext())
+            {
+                var productToUpdate = db.Produits.Find(SelectedProduct.ProductId);
+                if(db.Produits.Any(o => o.ProductId != Product.ProductId & o.ProductName == Product.ProductName))
+                {
+                    MessageBox.Show("Il existe deja un autre produit avec le meme nom dans la base de donnée", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    var result = MessageBox.Show("Vous êtes sur le point de modifier les informations de la ligne séctionnée avec les informations affichées. " +
+                        "Voulez vous poursuivre la modification?", "DataSmart Info", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if(result == MessageBoxResult.Yes)
+                    {
+                        db.Entry(productToUpdate).CurrentValues.SetValues(Product);
+                        db.SaveChanges();
+                        MessageBox.Show("Produit Mis à Jour!", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Method to Delete Existing Enity of Product
+        /// </summary>
+        public void DeleteProduct()
+        {
+            using (var db = new DataSmartDBContext())
+            {
+                var productToDelete = db.Produits.Find(SelectedProduct.ProductId);
+
+                if(productToDelete != null)
+                {
+                    var result = MessageBox.Show("Êtes vous sûre de supprimer définitivement Cet Employé?", "DataSmart Info", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    
+                    if(result == MessageBoxResult.Yes)
+                    {
+                        db.Produits.Remove(productToDelete);
+                        db.SaveChanges();
+                        MessageBox.Show("Produit supprimé de la base de données avec succès!", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region General Methods
 
         // Method to fill the datagrid
-        public void FillDataGrid()
+        public void FillProductGrid()
         {
+            if(ProductList.Count() > 0)
+            {
+                ProductList.Clear();
+            }
             using (var db = new DataSmartDBContext())
             {
                 var prod = db.Produits.ToList();
-                foreach (var d in prod)
+                
+                if(prod != null)
                 {
-                    ProductList.Add(d);
+                    foreach (var d in prod)
+                    {
+                        ProductList.Add(d);
+                    }
                 }
-            };
-            NumberOfRecord = ProductList.Count();
+            }
         }
 
-        public void SaveNewProductStructure(string Category,string SubCategory)
+        public void SaveNewProductStructure()
         {
             using (var db = new DataSmartDBContext())
             {
-                if (db.ProductStructure.Any(o => o.Category_1 == Category & o.Category_2 == SubCategory))
+                if (db.ProductStructure.Any(o => o.Category_1 == Product.ProductCategory_1 & o.Category_2 == Product.ProductCategory_2))
                 {
                     return;
-                } else
+                } 
+                else
                 {
                     ProductStructure Structure = new ProductStructure()
                     {
-                        Category_1 = Category,
-                        Category_2 = SubCategory
+                        Category_1 = Product.ProductCategory_1,
+                        Category_2 = Product.ProductCategory_2
                     };
                     db.ProductStructure.Add(Structure);
                     db.SaveChanges();
@@ -137,105 +227,32 @@ namespace DataSmart.ViewModels
         /// </summary>
         public void GetProductStructure()
         {
+            if(CategoryList.Count() > 0)
+            {
+                CategoryList.Clear();
+            }
+
+            if(SubCategoryList.Count() > 0)
+            {
+                SubCategoryList.Clear();
+            }
+
             using (var db = new DataSmartDBContext())
             {
-                var structure = (from data in db.ProductStructure select data);
+                var structure = db.ProductStructure.ToList();
 
-                foreach(var d in structure)
+                if(structure != null)
                 {
-                    CategoryList.Add(d.Category_1);
-                    SubCategoryList.Add(d.Category_2);
+                    foreach (var d in structure)
+                    {
+                        CategoryList.Add(d.Category_1);
+                        SubCategoryList.Add(d.Category_2);
+                    }
+                    CategoryList = CategoryList.Distinct().ToList();
+                    SubCategoryList = SubCategoryList.Distinct().ToList();
                 }
             }
-            CategoryList = CategoryList.Distinct().ToList();
-            SubCategoryList = SubCategoryList.Distinct().ToList();
         }
-
-        /// <summary>
-        /// Method to Save new entity of Product
-        /// </summary>
-        public void AddNewProduct()
-        {
-            if (CheckDuplicateProduct())
-            {
-                return;
-            }
-            using (var db = new DataSmartDBContext())
-            {
-                db.Produits.Add(Product);
-                db.SaveChanges();
-                //MessageBox.Show("Produit Sauvegardé","DataSmart", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            ProductList.Clear();
-            FillDataGrid();
-
-            SaveNewProductStructure(Product.ProductCategory_1,Product.ProductCategory_2);
-
-            CategoryList.Clear();
-            SubCategoryList.Clear();
-            GetProductStructure();
-            MessageBox.Show("Produit Sauvegardé", "DataSmart", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        /// <summary>
-        /// Method to Delete Existing Enity of Product
-        /// </summary>
-        public void DeleteProduct()
-        {
-            using (var db = new DataSmartDBContext())
-            {
-                var productToDelete = db.Produits.Find(SelectedProduct.ProductId);
-                db.Produits.Remove(productToDelete);
-                db.SaveChanges();
-                MessageBox.Show("Produit Supprimé!", "DataSmart", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            ProductList.Clear();
-            FillDataGrid();
-
-            CategoryList.Clear();
-            SubCategoryList.Clear();
-            GetProductStructure();
-        }
-
-        /// <summary>
-        ///  Method to update an Existing Entity of Product
-        /// </summary>
-        public void UpdateProduct()
-        {
-            using (var db = new DataSmartDBContext())
-            {
-                var productToUpdate = db.Produits.Find(SelectedProduct.ProductId);
-                db.Entry(productToUpdate).CurrentValues.SetValues(Product);
-                db.SaveChanges();
-                MessageBox.Show("Produit Mis à Jour!", "DataSmart", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-
-            ProductList.Clear();
-            FillDataGrid();
-
-            CategoryList.Clear();
-            SubCategoryList.Clear();
-            GetProductStructure();
-        }
-
-        /// <summary>
-        /// Method to check if the there is a duplicate record
-        /// </summary>
-        /// <returns>Boolean: True if there is duplicate and false if else</returns>
-        public bool CheckDuplicateProduct()
-        {
-            //var result = false;
-            using (var db = new DataSmartDBContext())
-            {
-                if (db.Produits.Any(o => o.ProductName == Product.ProductName && o.ProductCategory_1 == Product.ProductCategory_1 && o.ProductCategory_2 == Product.ProductCategory_2))
-                {
-                    MessageBox.Show("Produit Existant Dans la Base de Donnée", "Duplicat De Produit", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return true;
-                }
-                return false;
-            }
-        }
-
 
         #endregion
     }

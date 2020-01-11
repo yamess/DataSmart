@@ -9,17 +9,18 @@ namespace DataSmart.Models
     {
         [Key]
         public int EmployeeId { get; set; }
-        
+
+        public string UserId { get; set; }
+
         private string _EmployeeSIN;
-        [Required]
+
         [Index(IsUnique = true)]
         public string EmployeeSIN
         {
             get { return _EmployeeSIN; }
-            set { _EmployeeSIN = value; RaisePropertyChanged("EmployeeSIN"); }
+            set { _EmployeeSIN = value; RaisePropertyChanged("EmployeeSIN");}
         }
 
-        [Required]
         private string _FirstName;
         public string FirstName
         {
@@ -27,7 +28,6 @@ namespace DataSmart.Models
             set { _FirstName = value; RaisePropertyChanged("FirstName"); }
         }
 
-        [Required]
         private string _LastName;
         public string LastName
         {
@@ -83,5 +83,8 @@ namespace DataSmart.Models
             get { return _DateOfHire; }
             set { _DateOfHire = value; RaisePropertyChanged("DateOfHire"); }
         }
+
+
+        public virtual User User { get; set; }
     }
 }

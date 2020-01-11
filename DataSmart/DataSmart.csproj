@@ -65,6 +65,9 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="PasswordGenerator, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PasswordGenerator.2.0.5\lib\netstandard2.0\PasswordGenerator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -86,6 +89,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.7.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.7.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.7.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.7.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.7.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -99,36 +117,25 @@
     <Compile Include="Helpers\BaseModel.cs" />
     <Compile Include="Helpers\DataSmartDBContext.cs" />
     <Compile Include="Helpers\Misc.cs" />
-    <Compile Include="Migrations\202001060406201_InitialCreate.cs" />
-    <Compile Include="Migrations\202001060406201_InitialCreate.designer.cs">
-      <DependentUpon>202001060406201_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202001111011505_InitialCreate.cs" />
+    <Compile Include="Migrations\202001111011505_InitialCreate.designer.cs">
+      <DependentUpon>202001111011505_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001060647015_ProductStructur.cs" />
-    <Compile Include="Migrations\202001060647015_ProductStructur.designer.cs">
-      <DependentUpon>202001060647015_ProductStructur.cs</DependentUpon>
+    <Compile Include="Migrations\202001111031073_Initial.cs" />
+    <Compile Include="Migrations\202001111031073_Initial.designer.cs">
+      <DependentUpon>202001111031073_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001062153514_Migration_2.cs" />
-    <Compile Include="Migrations\202001062153514_Migration_2.designer.cs">
-      <DependentUpon>202001062153514_Migration_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001072223458_Migratin_3.cs" />
-    <Compile Include="Migrations\202001072223458_Migratin_3.designer.cs">
-      <DependentUpon>202001072223458_Migratin_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001091012042_migration4.cs" />
-    <Compile Include="Migrations\202001091012042_migration4.designer.cs">
-      <DependentUpon>202001091012042_migration4.cs</DependentUpon>
+    <Compile Include="Migrations\202001111053187_Initial1.cs" />
+    <Compile Include="Migrations\202001111053187_Initial1.designer.cs">
+      <DependentUpon>202001111053187_Initial1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductStructure.cs" />
-    <Compile Include="ViewModels\Commands\DeleteEmployeeCommand.cs" />
-    <Compile Include="ViewModels\Commands\DeleteProductCommand.cs" />
-    <Compile Include="ViewModels\Commands\NewProductCommand.cs" />
-    <Compile Include="ViewModels\Commands\SaveNewEmployeeCommand.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="ViewModels\Commands\ProductCommand.cs" />
     <Compile Include="ViewModels\Commands\EmployeeCommand.cs" />
-    <Compile Include="ViewModels\Commands\UpdateProductCommand.cs" />
     <Compile Include="ViewModels\DashboardVM.cs" />
     <Compile Include="ViewModels\EmployeeVM.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
@@ -187,20 +194,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202001060406201_InitialCreate.resx">
-      <DependentUpon>202001060406201_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001111011505_InitialCreate.resx">
+      <DependentUpon>202001111011505_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001060647015_ProductStructur.resx">
-      <DependentUpon>202001060647015_ProductStructur.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001111031073_Initial.resx">
+      <DependentUpon>202001111031073_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001062153514_Migration_2.resx">
-      <DependentUpon>202001062153514_Migration_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001072223458_Migratin_3.resx">
-      <DependentUpon>202001072223458_Migratin_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001091012042_migration4.resx">
-      <DependentUpon>202001091012042_migration4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001111053187_Initial1.resx">
+      <DependentUpon>202001111053187_Initial1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -29,10 +29,12 @@ namespace DataSmart.ViewModels
             get { return _SelectedEmployee; }
             set
             {
-                _SelectedEmployee = value; RaisePropertyChanged("SelectedEmployee");
+                _SelectedEmployee = value; 
+                RaisePropertyChanged("SelectedEmployee");
                 if(SelectedEmployee != null)
                 {
-                    Employee = Misc.DeepCopy(SelectedEmployee) as Employee; RaisePropertyChanged("Employee");
+                    Employee = Misc.DeepCopy(SelectedEmployee) as Employee; 
+                    RaisePropertyChanged("Employee");
                 }
             }
         }
@@ -41,7 +43,7 @@ namespace DataSmart.ViewModels
         public EmployeeCommand EmployeeCmd { get; set; }
         #endregion
 
-        #region Initialisation
+        #region Constructor
         public EmployeeVM()
         {
             Employee = new Employee();
@@ -53,7 +55,7 @@ namespace DataSmart.ViewModels
         }
         #endregion
 
-        #region Methods
+        #region Buttons Actions
         public void AddNewEmployee()
         {
             using (var db = new DataSmartDBContext())
@@ -66,7 +68,7 @@ namespace DataSmart.ViewModels
                 {
                     db.Employee.Add(Employee);
                     db.SaveChanges();
-                    MessageBox.Show("Nouvel Employé Sauvegardé", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Nouvel employé sauvegardé dans la base données avec succès", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
@@ -110,18 +112,20 @@ namespace DataSmart.ViewModels
                     {
                         db.Employee.Remove(employeeToDelete);
                         db.SaveChanges();
-                        MessageBox.Show("Employé Supprimé de la base de données", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Employé Supprimé de la base de données avec succès!", "DataSmart Info", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
         }
 
+        #endregion
+
+        #region General Methods
         public void FillEmployeeGrid()
         {
             if(EmployeeList.Count() > 0)
             {
                 EmployeeList.Clear();
-                
             }
             using (var db = new DataSmartDBContext())
             {
