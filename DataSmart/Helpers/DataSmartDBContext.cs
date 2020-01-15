@@ -14,6 +14,7 @@ namespace DataSmart.Helpers
         //public DbSet<User> User { get; set; }
         public DbSet<Product> Produits { get; set; } // Produits is the name of the table of Product that will created in the database
         public DbSet<ProductStructure> ProductStructure { get; set; }
+        public DbSet<User> User { get; set; }
 
     }
 }

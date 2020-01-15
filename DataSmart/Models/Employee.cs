@@ -10,9 +10,10 @@ namespace DataSmart.Models
         [Key]
         public int EmployeeId { get; set; }
 
-        public string UserId { get; set; }
-
         private string _EmployeeSIN;
+
+        //[ForeignKey("UserId")]
+        //public int UserId { get; set; }
 
         [Index(IsUnique = true)]
         public string EmployeeSIN
@@ -84,7 +85,8 @@ namespace DataSmart.Models
             set { _DateOfHire = value; RaisePropertyChanged("DateOfHire"); }
         }
 
-
-        public virtual User User { get; set; }
+        //[ForeignKey("UserId")]
+        //public User User { get; set; }
+        //public virtual User User { get; set; }
     }
 }

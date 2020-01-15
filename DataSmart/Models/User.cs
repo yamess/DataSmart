@@ -12,9 +12,18 @@ namespace DataSmart.Models
 {
     public class User : BaseModel
     {
+
+        public User()
+        {
+            Employee = new Employee();
+        }
+
         [Key]
         public int UserId { get; set; }
+
         public int EmployeeId { get; set; }
+        [ForeignKey("EmployeeId")]
+        public Employee Employee { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string UserName
@@ -30,10 +39,10 @@ namespace DataSmart.Models
         }
 
         public string Password { get; set; }
-        // Password genration example from PasswordGenerator package
-        //var pwd = new Password().IncludeLowercase().IncludeUppercase().IncludeSpecial().LengthRequired(128);
-        //var result = pwd.Next();
-        public virtual Employee Employee { get; set; }
+
+        
+
+        
     }
 }
 
